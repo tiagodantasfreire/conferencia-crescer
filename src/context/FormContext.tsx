@@ -14,7 +14,7 @@ export const FormContextProvider = ({ children }: { children: ReactNode }) => {
     'user'
   );
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = () => {
     setIsLoggedIn(true);
