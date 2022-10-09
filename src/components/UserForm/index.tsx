@@ -5,7 +5,6 @@ import { Form, FormContainer, RadioContainer } from './styled';
 export const UserForm = () => {
   const { nextStep } = useContext(FormContext);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [userType, setUserType] = useState('');
   const [guessChurch, setGuessChurch] = useState<string | undefined>();
@@ -15,7 +14,6 @@ export const UserForm = () => {
 
     const userData = {
       name,
-      email,
       phone,
       userType,
       guessChurch: userType === 'Membro' ? 'Casa do Pai' : guessChurch,
@@ -34,13 +32,6 @@ export const UserForm = () => {
           placeholder="Nome Completo"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
