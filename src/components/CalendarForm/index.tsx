@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Checkbox } from 'pretty-checkbox-react';
 import { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import { FormContext } from '../../context/FormContext';

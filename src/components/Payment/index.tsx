@@ -44,7 +44,11 @@ export const Payment = () => {
             <h2>Insira seu comprovante aqui</h2>
             <input
               type="file"
-              onChange={(e) => setPaymentFile(e.target.files[0])}
+              onChange={(e) => {
+                if (e.target.files) {
+                  setPaymentFile(e.target.files[0]);
+                }
+              }}
             />
           </>
         )}

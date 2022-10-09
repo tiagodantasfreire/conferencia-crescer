@@ -9,7 +9,7 @@ export const FormContext = createContext({} as FormContextType);
 
 export const FormContextProvider = ({ children }: { children: ReactNode }) => {
   const [step, setStep] = useState<'user' | 'calendar' | 'payment' | 'success'>(
-    'payment'
+    'user'
   );
 
   const nextStep = (step: 'user' | 'calendar' | 'payment' | 'success') => {
