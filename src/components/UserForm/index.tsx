@@ -284,6 +284,8 @@ export const UserForm = () => {
         <ReactInputMask
           mask="(99) 99999-9999"
           placeholder="Celular"
+          pattern="[0-9]"
+          inputMode="numeric"
           onChange={(e) => setPhone(e.target.value)}
           required
         />
