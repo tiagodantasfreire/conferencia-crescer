@@ -4,21 +4,24 @@ import { v4 as uuid } from 'uuid'
 import { QrCodePix } from 'qrcode-pix'
 import Image from 'next/future/image'
 import { doc, setDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import toast from 'react-hot-toast'
+import { ArrowLeft } from 'phosphor-react'
 
 import { FormContext } from '../../context/FormContext'
 import { ConfirmationPayment, PaymentContainer } from './styled'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
-import { db } from '../../services/firebase-config'
-import { ArrowLeft } from 'phosphor-react'
+import { db, storage } from '../../services/firebase-config'
 
 export const Payment = () => {
   const { nextStep, lote, price, step } = useContext(FormContext)
   const { participants, numberOfParticipants } = useContext(ParticipantsContext)
+
   const [moneyPayment, setMoneyPayment] = useState(false)
   const [payedFor, setPayedFor] = useState('')
   const [qrCodeImage, setQrCodeImage] = useState('')
+  const [file, setFile] = useState<File | undefined | null>(undefined)
 
   const totalPrice = price * numberOfParticipants
   const totalPriceFormatted = Intl.NumberFormat('pt-BR').format(totalPrice)
@@ -40,6 +43,24 @@ export const Payment = () => {
     e.preventDefault()
     const uniqueId = uuid()
 
+    if (file) {
+      const fileRef = ref(storage, `${file?.name + uniqueId}`)
+      uploadBytes(fileRef, file).then((file) => {
+        getDownloadURL(file.ref).then((url) => {
+          const data = {
+            ...participants,
+            payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
+            price: `R$${totalPrice}`,
+            approved: false,
+            receipt: url,
+          }
+
+          setDoc(doc(db, 'inscritos', uniqueId), data)
+          nextStep('success')
+        })
+      })
+    }
+
     const data = {
       ...participants,
       payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
@@ -47,7 +68,7 @@ export const Payment = () => {
       approved: false,
     }
 
-    await setDoc(doc(db, 'inscritos', uniqueId), data)
+    setDoc(doc(db, 'inscritos', uniqueId), data)
     nextStep('success')
   }
 
@@ -96,7 +117,13 @@ export const Payment = () => {
         {moneyPayment === false && (
           <>
             <h2>Insira seu comprovante aqui</h2>
-            <input required type="file" />
+            <input
+              required
+              type="file"
+              onChange={(e) => {
+                e.target.files && setFile(e.target.files[0])
+              }}
+            />
           </>
         )}
 

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useContext, useState } from 'react'
 
@@ -31,6 +32,7 @@ export const Users = () => {
   return (
     <UsersContainer>
       <h1>Participantes</h1>
+      <Link href="/aprovar">Aprovar pagamentos</Link>
       <SearchBarContainer>
         <MagnifyingGlass size={18} />
         <input

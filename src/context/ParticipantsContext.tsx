@@ -16,6 +16,7 @@ interface UserType {
   id: string
   price: string
   approved: boolean
+  receipt: string
 }
 
 interface ParticipantsContextType {
@@ -28,6 +29,7 @@ interface ParticipantsContextType {
     phone: string
   }
   users: UserType[]
+  usersToApprove: UserType[]
   numberOfParticipants: number
   totalOfUsers: number
   setParticipants: Dispatch<
@@ -57,6 +59,7 @@ export const ParticipantsContextProvider = ({
   const numberOfParticipants = participants.users.length
 
   const [users, setUsers] = useState<UserType[]>([])
+  const [usersToApprove, setUsersToAprove] = useState<UserType[]>([])
 
   useEffect(() => {
     const getUsers = async () => {
@@ -65,7 +68,11 @@ export const ParticipantsContextProvider = ({
         (doc) => ({ ...doc.data(), id: doc.id } as UserType)
       )
 
-      setUsers(users)
+      const approvedUsers = users.filter((user) => user.approved)
+      const userToApprove = users.filter((user) => user.approved === false)
+
+      setUsersToAprove(userToApprove)
+      setUsers(approvedUsers)
     }
 
     getUsers()
@@ -87,6 +94,7 @@ export const ParticipantsContextProvider = ({
         numberOfParticipants,
         users,
         totalOfUsers,
+        usersToApprove,
       }}
     >
       {children}

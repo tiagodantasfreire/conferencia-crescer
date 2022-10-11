@@ -14,6 +14,13 @@ export const UsersContainer = styled.div`
     font-size: 0.85rem;
     margin-bottom: 0.25rem;
   }
+
+  a {
+    font-size: 0.75rem;
+    text-decoration: underline;
+    color: ${({ theme }) => theme.pink};
+    cursor: pointer;
+  }
 `
 
 export const SearchBarContainer = styled.div`
@@ -42,5 +49,23 @@ export const UserContainer = styled.div`
 
   > p {
     font-size: 0.85rem;
+
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+      color: ${({ theme }) => theme.pink};
+    }
   }
+`
+
+export const ConfirmButton = styled.button`
+  width: fit-content;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.35rem 1rem;
+  background-color: green;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.625rem;
 `
