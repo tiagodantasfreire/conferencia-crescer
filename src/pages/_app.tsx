@@ -7,6 +7,7 @@ import '../styles/global.css'
 import { Header } from '../components/Header'
 import { FormContextProvider } from '../context/FormContext'
 import { ParticipantsContextProvider } from '../context/ParticipantsContext'
+import { Toaster } from 'react-hot-toast'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ParticipantsContextProvider>
           <Header />
           <Component {...pageProps} />
+          <Toaster />
         </ParticipantsContextProvider>
       </FormContextProvider>
     </ThemeProvider>

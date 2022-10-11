@@ -3,16 +3,18 @@ import { Checkbox } from 'pretty-checkbox-react'
 import { v4 as uuid } from 'uuid'
 import { QrCodePix } from 'qrcode-pix'
 import Image from 'next/future/image'
+import { doc, setDoc } from 'firebase/firestore'
+import toast from 'react-hot-toast'
 
 import { FormContext } from '../../context/FormContext'
 import { ConfirmationPayment, PaymentContainer } from './styled'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
-import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../../services/firebase-config'
+import { ArrowLeft } from 'phosphor-react'
 
 export const Payment = () => {
-  const { nextStep, lote, price } = useContext(FormContext)
+  const { nextStep, lote, price, step } = useContext(FormContext)
   const { participants, numberOfParticipants } = useContext(ParticipantsContext)
   const [moneyPayment, setMoneyPayment] = useState(false)
   const [payedFor, setPayedFor] = useState('')
@@ -23,7 +25,7 @@ export const Payment = () => {
 
   const qrCodePix = QrCodePix({
     city: 'São Paulo',
-    key: '+5511964152205',
+    key: '+5511975241213',
     name: 'Igreja Casa do Pai',
     version: '01',
     message: 'Conferência Crescer | 1º Lote',
@@ -42,32 +44,46 @@ export const Payment = () => {
       ...participants,
       payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
       price: `R$${totalPrice}`,
+      approved: false,
     }
 
     await setDoc(doc(db, 'inscritos', uniqueId), data)
     nextStep('success')
   }
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(qrCodePix.payload())
+
+    toast.success('O código foi copiado', {
+      duration: 5000,
+      position: 'top-center',
+      style: {
+        background: '#333',
+        color: '#FFF',
+      },
+    })
+  }
+
   return (
     <PaymentContainer>
+      {step === 'payment' && (
+        <span onClick={() => nextStep('user')}>
+          <ArrowLeft size={16} /> Voltar
+        </span>
+      )}
       <h1>Realize o pagamento</h1>
       <div>
         Inscrição para{' '}
-        {`${numberOfParticipants} ${
+        <strong>{`${numberOfParticipants} ${
           numberOfParticipants === 1 ? 'pessoa ' : 'pessoas '
-        }`}
-        no {lote}º Lote no valor de R${totalPriceFormatted}
+        }`}</strong>
+        no {lote}º Lote no valor de <strong>R${totalPriceFormatted}</strong>
       </div>
-      <br />
       <p>
         Faça o pagamento através do QR Code ou copie o código abaixo e cole na
         função PIX Copia e Cola no aplicativo do seu banco
       </p>
-      <button
-        onClick={() => navigator.clipboard.writeText(qrCodePix.payload())}
-      >
-        Copiar código PIX
-      </button>
+      <button onClick={handleCopy}>Copiar código PIX</button>
 
       <Image
         src={qrCodeImage}

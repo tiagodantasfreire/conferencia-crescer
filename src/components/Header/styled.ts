@@ -39,17 +39,4 @@ export const HeaderContainer = styled.header`
   p {
     display: none;
   }
-
-  span {
-    position: absolute;
-    top: 8%;
-    left: 1rem;
-    display: flex;
-    cursor: pointer;
-
-    svg {
-      margin-right: 4px;
-      margin-top: 4px;
-    }
-  }
 `

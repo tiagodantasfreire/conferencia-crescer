@@ -15,6 +15,7 @@ interface UserType {
   payment: string
   id: string
   price: string
+  approved: boolean
 }
 
 interface ParticipantsContextType {

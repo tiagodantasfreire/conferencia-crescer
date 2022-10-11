@@ -31,7 +31,7 @@ export const Form = styled.form`
     border-radius: 4px;
     border: 1px solid #000;
     color: #000;
-    font-weight: bold;
+    /* font-weight: bold; */
     transition: border 0.2s;
 
     &:focus {

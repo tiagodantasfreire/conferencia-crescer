@@ -5,7 +5,17 @@ export const PaymentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 3rem;
+  margin-top: 1rem;
+
+  span {
+    display: flex;
+    cursor: pointer;
+
+    svg {
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+  }
 
   h1 {
     font-size: 1.25rem;
@@ -45,7 +55,6 @@ export const PaymentContainer = styled.div`
     border-radius: 4px;
     border: 1px solid #000;
     color: #000;
-    font-weight: bold;
     transition: border 0.2s;
     margin-bottom: 1.25rem;
 

@@ -1,27 +1,59 @@
-import { useContext } from 'react'
+import { MagnifyingGlass } from 'phosphor-react'
+import { useContext, useState } from 'react'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
-import { UserContainer, UsersContainer } from './styled'
+import { SearchBarContainer, UsersContainer } from './styled'
+import { User } from './User'
 
 export const Users = () => {
   const { users, totalOfUsers } = useContext(ParticipantsContext)
+  const [search, setSearch] = useState('')
+
+  const filteredUsers = users.filter(
+    (users) =>
+      users.users.flat().filter((user) => {
+        if (
+          user.name
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toUpperCase()
+            .includes(
+              search
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toUpperCase()
+            )
+        )
+          return user
+      }).length > 0 && users
+  )
 
   return (
     <UsersContainer>
-      <h1>Inscritos</h1>
-      <p>Nº de participantes: {totalOfUsers}</p>
-      {users.map(({ id, phone, users, payment, price }) => (
-        <UserContainer key={id}>
-          {users.map(({ name, type, church }) => (
-            <p key={name}>
-              Nome: {name} ({type}) | Igreja: {church}
-            </p>
+      <h1>Participantes</h1>
+      <SearchBarContainer>
+        <MagnifyingGlass size={18} />
+        <input
+          type="search"
+          placeholder="Pesquise por nome"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </SearchBarContainer>
+
+      {!search && (
+        <>
+          <p>Nº de participantes: {totalOfUsers}</p>
+          {users.map((user) => (
+            <User key={user.id} user={user} />
           ))}
-          <p>Contato: {phone}</p>
-          <p>Pagou {payment}</p>
-          <p>Valor: {price}</p>
-        </UserContainer>
-      ))}
+        </>
+      )}
+
+      {search &&
+        filteredUsers.map((filtered) => (
+          <User key={filtered.id} user={filtered} />
+        ))}
     </UsersContainer>
   )
 }
