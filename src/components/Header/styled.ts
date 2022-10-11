@@ -45,6 +45,7 @@ export const HeaderContainer = styled.header`
     top: 8%;
     left: 1rem;
     display: flex;
+    cursor: pointer;
 
     svg {
       margin-right: 4px;
