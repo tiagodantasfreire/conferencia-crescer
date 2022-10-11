@@ -47,7 +47,6 @@ export const CalendarForm = () => {
       all: all.current.checked,
     };
 
-    console.log(selectedDays);
     nextStep('payment');
   };
 

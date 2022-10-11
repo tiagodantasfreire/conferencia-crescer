@@ -19,9 +19,7 @@ export const Header = () => {
           <ArrowLeft size={16} /> Voltar
         </span>
       )}
-      {(step !== 'success' || pathname !== '/admin') && (
-        <p>Passo {step === 'user' ? 1 : 2} de 2</p>
-      )}
+      {step !== 'success' && <p>Passo {step === 'user' ? 1 : 2} de 2</p>}
     </HeaderContainer>
   );
 };

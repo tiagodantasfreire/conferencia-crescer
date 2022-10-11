@@ -12,15 +12,15 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase-config';
 
 export const Payment = () => {
-  const { nextStep } = useContext(FormContext);
+  const { nextStep, lote, price } = useContext(FormContext);
   const { participants, numberOfParticipants } =
     useContext(ParticipantsContext);
   const [moneyPayment, setMoneyPayment] = useState(false);
   const [payedFor, setPayedFor] = useState('');
   const [qrCodeImage, setQrCodeImage] = useState('');
 
-  const price = 30 * numberOfParticipants;
-  const priceFormatted = Intl.NumberFormat('pt-BR').format(price);
+  const totalPrice = price * numberOfParticipants;
+  const totalPriceFormatted = Intl.NumberFormat('pt-BR').format(totalPrice);
 
   const qrCodePix = QrCodePix({
     city: 'São Paulo',
@@ -28,7 +28,7 @@ export const Payment = () => {
     name: 'Igreja Casa do Pai',
     version: '01',
     message: 'Conferência Crescer | 1º Lote',
-    value: price,
+    value: totalPrice,
   });
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const Payment = () => {
     const data = {
       ...participants,
       payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
-      price: `R$${numberOfParticipants * 30}`,
+      price: `R$${totalPrice}`,
     };
 
     await setDoc(doc(db, 'inscritos', uniqueId), data);
@@ -57,7 +57,7 @@ export const Payment = () => {
         {`${numberOfParticipants} ${
           numberOfParticipants === 1 ? 'pessoa ' : 'pessoas '
         }`}
-        no 1º Lote no valor de R${priceFormatted}
+        no {lote}º Lote no valor de R${totalPriceFormatted}
       </div>
       <br />
       <p>

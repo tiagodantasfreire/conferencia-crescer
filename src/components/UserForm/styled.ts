@@ -68,6 +68,7 @@ export const AddRemoveContainer = styled.div`
   flex-direction: column;
   p {
     font-size: 0.875rem;
+    cursor: pointer;
 
     &.remove {
       color: red;

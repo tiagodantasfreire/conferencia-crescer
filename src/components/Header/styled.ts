@@ -37,8 +37,7 @@ export const HeaderContainer = styled.header`
   }
 
   p {
-    max-width: 90vw;
-    margin: 0 auto;
+    display: none;
   }
 
   span {
