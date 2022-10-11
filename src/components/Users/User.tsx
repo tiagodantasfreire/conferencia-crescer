@@ -43,9 +43,12 @@ export const User = ({
       <p>
         Pagou {payment}{' '}
         {receipt && (
-          <a href={receipt} target="blank">
-            | Link do comprovante
-          </a>
+          <>
+            |
+            <a href={receipt} target="blank">
+              Link do comprovante
+            </a>
+          </>
         )}
       </p>
       <p>Valor: {price}</p>

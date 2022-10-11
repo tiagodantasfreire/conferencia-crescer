@@ -18,16 +18,20 @@ export const UserForm = () => {
   const [userType2, setUserType2] = useState<'Membro' | 'Visitante'>('Membro')
   const [userType3, setUserType3] = useState<'Membro' | 'Visitante'>('Membro')
   const [userType4, setUserType4] = useState<'Membro' | 'Visitante'>('Membro')
+  const [userType5, setUserType5] = useState<'Membro' | 'Visitante'>('Membro')
   const [church, setChurch] = useState('')
   const [church2, setChurch2] = useState('')
   const [church3, setChurch3] = useState('')
   const [church4, setChurch4] = useState('')
+  const [church5, setChurch5] = useState('')
   const [name2, setName2] = useState('')
   const [showName2, setShowName2] = useState(false)
   const [name3, setName3] = useState('')
   const [showName3, setShowName3] = useState(false)
   const [name4, setName4] = useState('')
   const [showName4, setShowName4] = useState(false)
+  const [name5, setName5] = useState('')
+  const [showName5, setShowName5] = useState(false)
 
   const { nextStep, participants, addPeople, removePeople } =
     useContext(FormContext)
@@ -37,7 +41,8 @@ export const UserForm = () => {
   useEffect(() => {
     participants >= 2 ? setShowName2(true) : setShowName2(false)
     participants >= 3 ? setShowName3(true) : setShowName3(false)
-    participants === 4 ? setShowName4(true) : setShowName4(false)
+    participants >= 4 ? setShowName4(true) : setShowName4(false)
+    participants === 5 ? setShowName5(true) : setShowName5(false)
   }, [participants])
 
   const handleSubmit = (e: FormEvent) => {
@@ -63,6 +68,11 @@ export const UserForm = () => {
         name: name4,
         type: userType4,
         church: userType4 === 'Membro' ? 'Casa do Pai' : church4,
+      },
+      {
+        name: name5,
+        type: userType5,
+        church: userType5 === 'Membro' ? 'Casa do Pai' : church5,
       },
     ]
 
@@ -260,9 +270,55 @@ export const UserForm = () => {
                 <label htmlFor="guess4">Visitante</label>
               </div>
             </RadioContainer>
+          </NameInputContainer>
+        )}
+
+        {showName5 && (
+          <NameInputContainer>
+            <input
+              type="text"
+              placeholder="Nome Completo"
+              value={name5}
+              onChange={(e) => setName5(e.target.value)}
+              required
+            />
+
+            {userType5 === 'Visitante' && (
+              <input
+                type="text"
+                placeholder="Qual sua igreja?"
+                value={church5}
+                onChange={(e) => setChurch5(e.target.value)}
+                required
+              />
+            )}
+
+            <RadioContainer>
+              <div>
+                <input
+                  type="radio"
+                  id="member5"
+                  name="userType5"
+                  value="Membro"
+                  onClick={() => setUserType5('Membro')}
+                  required
+                />
+                <label htmlFor="member5">Membro</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="guess5"
+                  name="userType5"
+                  value="Visitante"
+                  onClick={() => setUserType5('Visitante')}
+                />
+                <label htmlFor="guess5">Visitante</label>
+              </div>
+            </RadioContainer>
 
             <p className="limit">
-              Só é possível adicionar quatro pessoas por vez
+              Só é possível adicionar cinco pessoas por vez
             </p>
           </NameInputContainer>
         )}
@@ -274,7 +330,7 @@ export const UserForm = () => {
             </p>
           )}
 
-          {participants < 4 && (
+          {participants < 5 && (
             <p onClick={addPeople} className="add">
               + Adicionar participante
             </p>

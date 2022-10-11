@@ -28,9 +28,7 @@ export const FormContextProvider = ({ children }: { children: ReactNode }) => {
       ? 30
       : lote === 1 && participants >= 3
       ? 20
-      : lote === 2 && participants < 3
-      ? 40
-      : 30
+      : 40
 
   useEffect(() => {
     const date = new Date()
