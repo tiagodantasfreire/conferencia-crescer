@@ -6,14 +6,17 @@ import { GlobalStyle } from '../styles/global';
 import '../styles/global.css';
 import { Header } from '../components/Header';
 import { FormContextProvider } from '../context/FormContext';
+import { ParticipantsContextProvider } from '../context/ParticipantsContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <FormContextProvider>
-        <Header />
-        <Component {...pageProps} />
+        <ParticipantsContextProvider>
+          <Header />
+          <Component {...pageProps} />
+        </ParticipantsContextProvider>
       </FormContextProvider>
     </ThemeProvider>
   );

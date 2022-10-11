@@ -4,13 +4,11 @@ import { inscricoesCollectionRef } from '../../services/firebase-config';
 import { UserContainer, UsersContainer } from './styled';
 
 interface UserType {
-  name: string;
+  users: { name: string; type: 'Membro' | 'Visitante'; church: string }[];
   phone: string;
-  days: [string];
-  type: string;
   payment: string;
-  church: string;
   id: string;
+  price: string;
 }
 
 export const Users = () => {
@@ -32,16 +30,16 @@ export const Users = () => {
     <UsersContainer>
       <h1>Inscritos</h1>
 
-      {users.map((user) => (
-        <UserContainer key={user.id}>
-          <p>
-            Nome: {user.name} ({user.type})
-          </p>
-          <p>Dias: {user.days.map((day) => day)}</p>
-          <p>Contato: {user.phone}</p>
-          <p>
-            Igreja: {user.church} | Pagou {user.payment}
-          </p>
+      {users.map(({ id, phone, users, payment, price }) => (
+        <UserContainer key={id}>
+          {users.map(({ name, type, church }) => (
+            <p key={name}>
+              Nome: {name} ({type}) | Igreja: {church}
+            </p>
+          ))}
+          <p>Contato: {phone}</p>
+          <p>Pagou {payment}</p>
+          <p>Valor: {price}</p>
         </UserContainer>
       ))}
     </UsersContainer>

@@ -12,6 +12,12 @@ export const FormContainer = styled.div`
   h1 {
     font-size: 1.25rem;
   }
+
+  .limit {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+  }
 `;
 
 export const Form = styled.form`
@@ -57,6 +63,18 @@ export const Form = styled.form`
   }
 `;
 
+export const AddRemoveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  p {
+    font-size: 0.875rem;
+
+    &.remove {
+      color: red;
+    }
+  }
+`;
+
 export const RadioContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -72,4 +90,10 @@ export const RadioContainer = styled.div`
       accent-color: ${({ theme }) => theme.pink};
     }
   }
+`;
+
+export const NameInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;

@@ -1,79 +1,236 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useState, useEffect } from 'react';
 import { FormContext } from '../../context/FormContext';
-import { Form, FormContainer, RadioContainer } from './styled';
+import {
+  AddRemoveContainer,
+  Form,
+  FormContainer,
+  NameInputContainer,
+  RadioContainer,
+} from './styled';
+
+import ReactInputMask from 'react-input-mask';
+import { ParticipantsContext } from '../../context/ParticipantsContext';
 
 export const UserForm = () => {
-  const { nextStep } = useContext(FormContext);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [userType, setUserType] = useState('');
-  const [guessChurch, setGuessChurch] = useState<string | undefined>();
+  const [userType, setUserType] = useState<'Membro' | 'Visitante'>('Membro');
+  const [userType2, setUserType2] = useState<'Membro' | 'Visitante'>('Membro');
+  const [userType3, setUserType3] = useState<'Membro' | 'Visitante'>('Membro');
+  const [church, setChurch] = useState('');
+  const [church2, setChurch2] = useState('');
+  const [church3, setChurch3] = useState('');
+  const [name2, setName2] = useState('');
+  const [showName2, setShowName2] = useState(false);
+  const [name3, setName3] = useState('');
+  const [showName3, setShowName3] = useState(false);
 
-  const onSubmit = (e: FormEvent) => {
+  const { nextStep, participants, addPeople, removePeople } =
+    useContext(FormContext);
+
+  const { setParticipants } = useContext(ParticipantsContext);
+
+  useEffect(() => {
+    participants >= 2 ? setShowName2(true) : setShowName2(false);
+    participants === 3 ? setShowName3(true) : setShowName3(false);
+  }, [participants]);
+
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const userData = {
-      name,
+    const allParticipants = [
+      {
+        name,
+        type: userType,
+        church: userType === 'Membro' ? 'Casa do Pai' : church,
+      },
+      {
+        name: name2,
+        type: userType2,
+        church: userType2 === 'Membro' ? 'Casa do Pai' : church2,
+      },
+      {
+        name: name3,
+        type: userType3,
+        church: userType3 === 'Membro' ? 'Casa do Pai' : church3,
+      },
+    ];
+
+    const data = {
+      users: allParticipants.filter(
+        (participant) => participant.name.length > 0
+      ),
       phone,
-      userType,
-      guessChurch: userType === 'Membro' ? 'Casa do Pai' : guessChurch,
     };
 
-    console.log(userData);
-    nextStep('calendar');
+    setParticipants(data);
+    nextStep('payment');
   };
 
   return (
     <FormContainer>
       <h1>Faça sua inscrição aqui</h1>
-      <Form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="Nome Completo"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="number"
+      <Form onSubmit={handleSubmit}>
+        <NameInputContainer>
+          <input
+            type="text"
+            placeholder="Nome Completo"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+
+          {userType === 'Visitante' && (
+            <input
+              type="text"
+              placeholder="Qual sua igreja?"
+              value={church}
+              onChange={(e) => setChurch(e.target.value)}
+              required
+            />
+          )}
+
+          <RadioContainer>
+            <div>
+              <input
+                type="radio"
+                id="member"
+                name="userType"
+                value="Membro"
+                onClick={() => setUserType('Membro')}
+                required
+              />
+              <label htmlFor="member">Membro</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="guess"
+                name="userType"
+                value="Visitante"
+                onClick={() => setUserType('Visitante')}
+              />
+              <label htmlFor="guess">Visitante</label>
+            </div>
+          </RadioContainer>
+        </NameInputContainer>
+
+        {showName2 && (
+          <NameInputContainer>
+            <input
+              type="text"
+              placeholder="Nome Completo"
+              value={name2}
+              onChange={(e) => setName2(e.target.value)}
+              required
+            />
+
+            {userType2 === 'Visitante' && (
+              <input
+                type="text"
+                placeholder="Qual sua igreja?"
+                value={church2}
+                onChange={(e) => setChurch2(e.target.value)}
+                required
+              />
+            )}
+
+            <RadioContainer>
+              <div>
+                <input
+                  type="radio"
+                  id="member2"
+                  name="userType2"
+                  value="Membro"
+                  onClick={() => setUserType2('Membro')}
+                  required
+                />
+                <label htmlFor="member2">Membro</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="guess2"
+                  name="userType2"
+                  value="Visitante"
+                  onClick={() => setUserType2('Visitante')}
+                />
+                <label htmlFor="guess2">Visitante</label>
+              </div>
+            </RadioContainer>
+          </NameInputContainer>
+        )}
+
+        {showName3 && (
+          <NameInputContainer>
+            <input
+              type="text"
+              placeholder="Nome Completo"
+              value={name3}
+              onChange={(e) => setName3(e.target.value)}
+              required
+            />
+
+            {userType3 === 'Visitante' && (
+              <input
+                type="text"
+                placeholder="Qual sua igreja?"
+                value={church3}
+                onChange={(e) => setChurch3(e.target.value)}
+                required
+              />
+            )}
+
+            <RadioContainer>
+              <div>
+                <input
+                  type="radio"
+                  id="member3"
+                  name="userType3"
+                  value="Membro"
+                  onClick={() => setUserType3('Membro')}
+                  required
+                />
+                <label htmlFor="member3">Membro</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="guess3"
+                  name="userType3"
+                  value="Visitante"
+                  onClick={() => setUserType3('Visitante')}
+                />
+                <label htmlFor="guess3">Visitante</label>
+              </div>
+            </RadioContainer>
+
+            <p className="limit">
+              Só é possível adicionar três pessoas por vez
+            </p>
+          </NameInputContainer>
+        )}
+
+        <AddRemoveContainer>
+          {participants !== 1 && (
+            <p onClick={removePeople} className="remove">
+              - Remover participante
+            </p>
+          )}
+
+          {participants < 3 && (
+            <p onClick={addPeople} className="add">
+              + Adicionar participante
+            </p>
+          )}
+        </AddRemoveContainer>
+
+        <ReactInputMask
+          mask="(99) 99999-9999"
           placeholder="Celular"
-          value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
         />
-        <RadioContainer>
-          <div>
-            <input
-              type="radio"
-              id="member"
-              name="userType"
-              value="Membro"
-              onClick={() => setUserType('Membro')}
-              required
-            />
-            <label htmlFor="member">Membro</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="guess"
-              name="userType"
-              value="Visitante"
-              onClick={() => setUserType('Visitante')}
-            />
-            <label htmlFor="guess">Visitante</label>
-          </div>
-        </RadioContainer>
-
-        {userType === 'Visitante' && (
-          <input
-            type="text"
-            placeholder="Qual sua igreja?"
-            value={guessChurch}
-            onChange={(e) => setGuessChurch(e.target.value)}
-            required
-          />
-        )}
 
         <button>Próximo</button>
       </Form>

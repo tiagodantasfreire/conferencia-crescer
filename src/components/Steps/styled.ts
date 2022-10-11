@@ -12,5 +12,6 @@ export const StepsContainer = styled.div`
     border: 1px solid;
     border-radius: 50%;
     padding: 0.25rem;
+    /* background-color: #006b07; */
   }
 `;

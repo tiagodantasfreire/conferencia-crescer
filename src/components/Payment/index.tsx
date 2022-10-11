@@ -1,55 +1,87 @@
-import Image from 'next/image';
 import { Checkbox } from 'pretty-checkbox-react';
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
-import FirstLoteCode from '../../assets/qrcode-1l.jpeg';
-import SecondLoteCode from '../../assets/qrcode-2l.jpeg';
 import { FormContext } from '../../context/FormContext';
 import { ConfirmationPayment, PaymentContainer } from './styled';
 
+import { QrCodePix } from 'qrcode-pix';
+import Image from 'next/future/image';
+import { ParticipantsContext } from '../../context/ParticipantsContext';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../services/firebase-config';
+
 export const Payment = () => {
   const { nextStep } = useContext(FormContext);
-  const [isFirstLote, setIsFirstLote] = useState(true);
+  const { participants, numberOfParticipants } =
+    useContext(ParticipantsContext);
   const [moneyPayment, setMoneyPayment] = useState(false);
-  const [paymentFile, setPaymentFile] = useState<File>();
+  const [payedFor, setPayedFor] = useState('');
+  const [qrCodeImage, setQrCodeImage] = useState('');
 
-  const paymentLink = isFirstLote
-    ? 'https://nubank.com.br/pagar/fmsrn/AulmuNFFDy'
-    : 'https://nubank.com.br/pagar/fmsrn/33sdJhPjnY';
+  const price = 30 * numberOfParticipants;
+  const priceFormatted = Intl.NumberFormat('pt-BR').format(price);
 
-  const paymentQRCode = isFirstLote ? FirstLoteCode : SecondLoteCode;
+  const qrCodePix = QrCodePix({
+    city: 'São Paulo',
+    key: '+5511964152205',
+    name: 'Igreja Casa do Pai',
+    version: '01',
+    message: 'Conferência Crescer | 1º Lote',
+    value: price,
+  });
 
-  const handleSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    qrCodePix.base64().then((res) => setQrCodeImage(res));
+  }, [qrCodePix]);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const uniqueId = uuid();
 
-    console.log(paymentFile);
+    const data = {
+      ...participants,
+      payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
+      price: `R$${numberOfParticipants * 30}`,
+    };
+
+    await setDoc(doc(db, 'inscritos', uniqueId), data);
     nextStep('success');
   };
 
   return (
     <PaymentContainer>
       <h1>Realize o pagamento</h1>
+      <div>
+        Inscrição para{' '}
+        {`${numberOfParticipants} ${
+          numberOfParticipants === 1 ? 'pessoa ' : 'pessoas '
+        }`}
+        no 1º Lote no valor de R${priceFormatted}
+      </div>
+      <br />
       <p>
-        Faça o pagamento através do QR Code ou no link a baixo e insira o
-        comprovante
+        Faça o pagamento através do QR Code ou copie o código abaixo e cole na
+        função PIX Copia e Cola no aplicativo do seu banco
       </p>
-      <a href={paymentLink} target="blank">
-        Clique aqui para pagar
-      </a>
-      <Image src={paymentQRCode} alt="QR Code de pagamento da inscrição" />
+      <button
+        onClick={() => navigator.clipboard.writeText(qrCodePix.payload())}
+      >
+        Copiar código PIX
+      </button>
+
+      <Image
+        src={qrCodeImage}
+        alt="QR Code de pagamento da inscrição"
+        width={250}
+        height={250}
+      />
 
       <ConfirmationPayment onSubmit={handleSubmit}>
         {moneyPayment === false && (
           <>
             <h2>Insira seu comprovante aqui</h2>
-            <input
-              type="file"
-              onChange={(e) => {
-                if (e.target.files) {
-                  setPaymentFile(e.target.files[0]);
-                }
-              }}
-            />
+            <input required type="file" />
           </>
         )}
 
@@ -65,7 +97,12 @@ export const Payment = () => {
           Fiz o pagamento em dinheiro
         </Checkbox>
         {moneyPayment && (
-          <input type="text" placeholder="Para quem foi pago?" />
+          <input
+            type="text"
+            placeholder="Para quem foi pago?"
+            required
+            onChange={(e) => setPayedFor(e.target.value)}
+          />
         )}
 
         <button>Próximo</button>

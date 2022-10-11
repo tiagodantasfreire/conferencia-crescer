@@ -13,4 +13,6 @@ export const UsersContainer = styled.div`
 export const UserContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid #afacac;
+  padding: 0.5rem 0;
 `;

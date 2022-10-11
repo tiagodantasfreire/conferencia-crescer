@@ -1,7 +1,12 @@
-import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
 
 export const PaymentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 3rem;
+
   h1 {
     font-size: 1.25rem;
   }
@@ -10,11 +15,14 @@ export const PaymentContainer = styled.div`
     font-size: 0.875rem;
   }
 
-  a {
+  > button {
+    background: none;
+    border: none;
     font-size: 1rem;
     margin-top: 0.5rem;
     color: ${({ theme }) => theme.pink};
     text-decoration: underline;
+    font-family: inherit;
 
     &:hover {
       cursor: pointer;
@@ -22,7 +30,9 @@ export const PaymentContainer = styled.div`
   }
 
   img {
-    max-height: 15.625rem;
+    border: 1px solid ${({ theme }) => theme.pink};
+    border-radius: 8px;
+    margin: 1rem 0;
   }
 
   input[type='checkbox'] {
@@ -37,7 +47,7 @@ export const PaymentContainer = styled.div`
     color: #000;
     font-weight: bold;
     transition: border 0.2s;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
 
     &:focus {
       border: 1px solid ${({ theme }) => theme.pink};
@@ -56,6 +66,7 @@ export const ConfirmationPayment = styled.form`
 
   button {
     width: 90vw;
+    max-width: 25rem;
     background-color: ${({ theme }) => theme.pink};
     color: ${({ theme }) => theme.white};
     text-transform: uppercase;
