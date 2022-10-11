@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { collection, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app'
+import { collection, getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -9,9 +9,9 @@ const firebaseConfig = {
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
   measurementId: 'G-92ZTBN64KB',
-};
+}
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+const app = initializeApp(firebaseConfig)
+export const db = getFirestore(app)
 
-export const inscricoesCollectionRef = collection(db, 'inscritos');
+export const inscricoesCollectionRef = collection(db, 'inscritos')

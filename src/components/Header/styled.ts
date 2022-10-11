@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -42,7 +42,7 @@ export const HeaderContainer = styled.header`
 
   span {
     position: absolute;
-    top: 11%;
+    top: 8%;
     left: 1rem;
     display: flex;
 
@@ -51,4 +51,4 @@ export const HeaderContainer = styled.header`
       margin-top: 4px;
     }
   }
-`;
+`

@@ -1,11 +1,11 @@
-import { Check } from 'phosphor-react';
-import { useContext } from 'react';
+import { useContext } from 'react'
+import { Check } from 'phosphor-react'
 
-import { ParticipantsContext } from '../../context/ParticipantsContext';
-import { SuccessContainer } from './styled';
+import { ParticipantsContext } from '../../context/ParticipantsContext'
+import { SuccessContainer } from './styled'
 
 export const Success = () => {
-  const { participants } = useContext(ParticipantsContext);
+  const { participants } = useContext(ParticipantsContext)
 
   return (
     <SuccessContainer>
@@ -28,5 +28,5 @@ export const Success = () => {
 
       <p className="phone">{participants.phone}</p>
     </SuccessContainer>
-  );
-};
+  )
+}

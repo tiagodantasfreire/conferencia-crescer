@@ -1,5 +1,5 @@
-import { lighten } from 'polished';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
+import { lighten } from 'polished'
 
 export const FormContainer = styled.div`
   max-width: 90vw;
@@ -12,7 +12,7 @@ export const FormContainer = styled.div`
   h1 {
     font-size: 1.25rem;
   }
-`;
+`
 
 export const Form = styled.form`
   display: flex;
@@ -36,7 +36,7 @@ export const Form = styled.form`
       }
     `}
   }
-`;
+`
 
 export const CheckboxContainer = styled.div`
   display: flex;
@@ -54,4 +54,4 @@ export const CheckboxContainer = styled.div`
   input {
     accent-color: ${({ theme }) => theme.pink};
   }
-`;
+`

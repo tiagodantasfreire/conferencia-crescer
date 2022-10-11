@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StepsContainer = styled.div`
   display: flex;
@@ -12,6 +12,5 @@ export const StepsContainer = styled.div`
     border: 1px solid;
     border-radius: 50%;
     padding: 0.25rem;
-    /* background-color: #006b07; */
   }
-`;
+`

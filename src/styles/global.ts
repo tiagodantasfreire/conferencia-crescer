@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import media from 'styled-media-query';
+import styled, { createGlobalStyle } from 'styled-components'
+import media from 'styled-media-query'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -26,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     color: #000;
     text-decoration: none;
   }
-`;
+`
 
 export const Container = styled.div`
   max-width: 90vw;
@@ -39,4 +39,4 @@ export const Container = styled.div`
   h1 {
     font-size: 1.5rem;
   }
-`;
+`

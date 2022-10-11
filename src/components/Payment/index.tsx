@@ -1,26 +1,25 @@
-import { Checkbox } from 'pretty-checkbox-react';
-import { FormEvent, useContext, useEffect, useState } from 'react';
-import { v4 as uuid } from 'uuid';
+import { FormEvent, useContext, useEffect, useState } from 'react'
+import { Checkbox } from 'pretty-checkbox-react'
+import { v4 as uuid } from 'uuid'
+import { QrCodePix } from 'qrcode-pix'
+import Image from 'next/future/image'
 
-import { FormContext } from '../../context/FormContext';
-import { ConfirmationPayment, PaymentContainer } from './styled';
+import { FormContext } from '../../context/FormContext'
+import { ConfirmationPayment, PaymentContainer } from './styled'
 
-import { QrCodePix } from 'qrcode-pix';
-import Image from 'next/future/image';
-import { ParticipantsContext } from '../../context/ParticipantsContext';
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../../services/firebase-config';
+import { ParticipantsContext } from '../../context/ParticipantsContext'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../../services/firebase-config'
 
 export const Payment = () => {
-  const { nextStep, lote, price } = useContext(FormContext);
-  const { participants, numberOfParticipants } =
-    useContext(ParticipantsContext);
-  const [moneyPayment, setMoneyPayment] = useState(false);
-  const [payedFor, setPayedFor] = useState('');
-  const [qrCodeImage, setQrCodeImage] = useState('');
+  const { nextStep, lote, price } = useContext(FormContext)
+  const { participants, numberOfParticipants } = useContext(ParticipantsContext)
+  const [moneyPayment, setMoneyPayment] = useState(false)
+  const [payedFor, setPayedFor] = useState('')
+  const [qrCodeImage, setQrCodeImage] = useState('')
 
-  const totalPrice = price * numberOfParticipants;
-  const totalPriceFormatted = Intl.NumberFormat('pt-BR').format(totalPrice);
+  const totalPrice = price * numberOfParticipants
+  const totalPriceFormatted = Intl.NumberFormat('pt-BR').format(totalPrice)
 
   const qrCodePix = QrCodePix({
     city: 'São Paulo',
@@ -29,25 +28,25 @@ export const Payment = () => {
     version: '01',
     message: 'Conferência Crescer | 1º Lote',
     value: totalPrice,
-  });
+  })
 
   useEffect(() => {
-    qrCodePix.base64().then((res) => setQrCodeImage(res));
-  }, [qrCodePix]);
+    qrCodePix.base64().then((res) => setQrCodeImage(res))
+  }, [qrCodePix])
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const uniqueId = uuid();
+    e.preventDefault()
+    const uniqueId = uuid()
 
     const data = {
       ...participants,
       payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
       price: `R$${totalPrice}`,
-    };
+    }
 
-    await setDoc(doc(db, 'inscritos', uniqueId), data);
-    nextStep('success');
-  };
+    await setDoc(doc(db, 'inscritos', uniqueId), data)
+    nextStep('success')
+  }
 
   return (
     <PaymentContainer>
@@ -108,5 +107,5 @@ export const Payment = () => {
         <button>Próximo</button>
       </ConfirmationPayment>
     </PaymentContainer>
-  );
-};
+  )
+}

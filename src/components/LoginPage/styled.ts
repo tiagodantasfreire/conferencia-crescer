@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
+import styled, { css } from 'styled-components'
+import { lighten } from 'polished'
 
 export const LoginContainer = styled.div`
   display: flex;
@@ -48,4 +48,4 @@ export const LoginContainer = styled.div`
       }
     `}
   }
-`;
+`

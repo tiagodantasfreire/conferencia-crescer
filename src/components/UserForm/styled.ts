@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
+import styled, { css } from 'styled-components'
+import { lighten } from 'polished'
 
 export const FormContainer = styled.div`
   max-width: 90vw;
@@ -18,7 +18,7 @@ export const FormContainer = styled.div`
     font-size: 0.875rem;
     margin-top: 1rem;
   }
-`;
+`
 
 export const Form = styled.form`
   display: flex;
@@ -61,7 +61,7 @@ export const Form = styled.form`
       }
     `}
   }
-`;
+`
 
 export const AddRemoveContainer = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ export const AddRemoveContainer = styled.div`
       color: red;
     }
   }
-`;
+`
 
 export const RadioContainer = styled.div`
   display: flex;
@@ -91,10 +91,10 @@ export const RadioContainer = styled.div`
       accent-color: ${({ theme }) => theme.pink};
     }
   }
-`;
+`
 
 export const NameInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-`;
+`

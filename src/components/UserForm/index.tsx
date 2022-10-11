@@ -1,47 +1,47 @@
-import { FormEvent, useContext, useState, useEffect } from 'react';
-import { FormContext } from '../../context/FormContext';
+import { FormEvent, useContext, useState, useEffect } from 'react'
+import ReactInputMask from 'react-input-mask'
+
+import { FormContext } from '../../context/FormContext'
 import {
   AddRemoveContainer,
   Form,
   FormContainer,
   NameInputContainer,
   RadioContainer,
-} from './styled';
-
-import ReactInputMask from 'react-input-mask';
-import { ParticipantsContext } from '../../context/ParticipantsContext';
+} from './styled'
+import { ParticipantsContext } from '../../context/ParticipantsContext'
 
 export const UserForm = () => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [userType, setUserType] = useState<'Membro' | 'Visitante'>('Membro');
-  const [userType2, setUserType2] = useState<'Membro' | 'Visitante'>('Membro');
-  const [userType3, setUserType3] = useState<'Membro' | 'Visitante'>('Membro');
-  const [userType4, setUserType4] = useState<'Membro' | 'Visitante'>('Membro');
-  const [church, setChurch] = useState('');
-  const [church2, setChurch2] = useState('');
-  const [church3, setChurch3] = useState('');
-  const [church4, setChurch4] = useState('');
-  const [name2, setName2] = useState('');
-  const [showName2, setShowName2] = useState(false);
-  const [name3, setName3] = useState('');
-  const [showName3, setShowName3] = useState(false);
-  const [name4, setName4] = useState('');
-  const [showName4, setShowName4] = useState(false);
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [userType, setUserType] = useState<'Membro' | 'Visitante'>('Membro')
+  const [userType2, setUserType2] = useState<'Membro' | 'Visitante'>('Membro')
+  const [userType3, setUserType3] = useState<'Membro' | 'Visitante'>('Membro')
+  const [userType4, setUserType4] = useState<'Membro' | 'Visitante'>('Membro')
+  const [church, setChurch] = useState('')
+  const [church2, setChurch2] = useState('')
+  const [church3, setChurch3] = useState('')
+  const [church4, setChurch4] = useState('')
+  const [name2, setName2] = useState('')
+  const [showName2, setShowName2] = useState(false)
+  const [name3, setName3] = useState('')
+  const [showName3, setShowName3] = useState(false)
+  const [name4, setName4] = useState('')
+  const [showName4, setShowName4] = useState(false)
 
   const { nextStep, participants, addPeople, removePeople } =
-    useContext(FormContext);
+    useContext(FormContext)
 
-  const { setParticipants } = useContext(ParticipantsContext);
+  const { setParticipants } = useContext(ParticipantsContext)
 
   useEffect(() => {
-    participants >= 2 ? setShowName2(true) : setShowName2(false);
-    participants >= 3 ? setShowName3(true) : setShowName3(false);
-    participants === 4 ? setShowName4(true) : setShowName4(false);
-  }, [participants]);
+    participants >= 2 ? setShowName2(true) : setShowName2(false)
+    participants >= 3 ? setShowName3(true) : setShowName3(false)
+    participants === 4 ? setShowName4(true) : setShowName4(false)
+  }, [participants])
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const allParticipants = [
       {
@@ -64,18 +64,18 @@ export const UserForm = () => {
         type: userType4,
         church: userType4 === 'Membro' ? 'Casa do Pai' : church4,
       },
-    ];
+    ]
 
     const data = {
       users: allParticipants.filter(
         (participant) => participant.name.length > 0
       ),
       phone,
-    };
+    }
 
-    setParticipants(data);
-    nextStep('payment');
-  };
+    setParticipants(data)
+    nextStep('payment')
+  }
 
   return (
     <FormContainer>
@@ -291,5 +291,5 @@ export const UserForm = () => {
         <button>Próximo</button>
       </Form>
     </FormContainer>
-  );
-};
+  )
+}

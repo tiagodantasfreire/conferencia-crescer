@@ -1,27 +1,28 @@
-import { FormEvent, useContext, useState, useEffect } from 'react';
+import { FormEvent, useContext, useState, useEffect } from 'react'
 
-import { FormContext } from '../../context/FormContext';
-import { getCookie, setCookie } from '../../utils/cookies';
-import { LoginContainer } from './styled';
+import { FormContext } from '../../context/FormContext'
+
+import { getCookie, setCookie } from '../../utils/cookies'
+import { LoginContainer } from './styled'
 
 export const LoginPage = () => {
-  const { login } = useContext(FormContext);
-  const [password, setPassword] = useState('');
+  const { login } = useContext(FormContext)
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
-    const cookie = getCookie('@ConfCrescer:casadopailogin');
+    const cookie = getCookie('@ConfCrescer:casadopailogin')
 
-    cookie === 'true' && login();
-  }, [login]);
+    cookie === 'true' && login()
+  }, [login])
 
   const handleLogin = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (password === 'admincrescer') {
-      setCookie('@ConfCrescer:casadopailogin', 'true');
-      login();
+      setCookie('@ConfCrescer:casadopailogin', 'true')
+      login()
     }
-  };
+  }
 
   return (
     <LoginContainer>
@@ -36,5 +37,5 @@ export const LoginPage = () => {
         <button>Entrar</button>
       </form>
     </LoginContainer>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
+import styled, { css } from 'styled-components'
+import { lighten } from 'polished'
 
 export const PaymentContainer = styled.div`
   display: flex;
@@ -57,7 +57,7 @@ export const PaymentContainer = styled.div`
       color: rgba(0, 0, 0, 0.8);
     }
   }
-`;
+`
 
 export const ConfirmationPayment = styled.form`
   h2 {
@@ -85,4 +85,4 @@ export const ConfirmationPayment = styled.form`
       }
     `}
   }
-`;
+`

@@ -1,9 +1,10 @@
-import { useContext } from 'react';
-import { ParticipantsContext } from '../../context/ParticipantsContext';
-import { UserContainer, UsersContainer } from './styled';
+import { useContext } from 'react'
+
+import { ParticipantsContext } from '../../context/ParticipantsContext'
+import { UserContainer, UsersContainer } from './styled'
 
 export const Users = () => {
-  const { users, totalOfUsers } = useContext(ParticipantsContext);
+  const { users, totalOfUsers } = useContext(ParticipantsContext)
 
   return (
     <UsersContainer>
@@ -22,5 +23,5 @@ export const Users = () => {
         </UserContainer>
       ))}
     </UsersContainer>
-  );
-};
+  )
+}

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --ext js,ts,jsx,tsx .",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",
@@ -15,11 +16,13 @@
     "phosphor-react": "^1.4.1",
     "pix-react": "^1.0.4",
     "polished": "^4.2.2",
+    "prettier": "^2.7.1",
     "pretty-checkbox": "^3.0.3",
     "pretty-checkbox-react": "^3.2.0",
     "qrcode-pix": "4.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-input-mask": "^2.0.4",
     "styled-components": "^5.3.6",
     "styled-media-query": "^2.1.2",
