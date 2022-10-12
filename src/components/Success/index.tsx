@@ -1,17 +1,19 @@
 import { useContext } from 'react'
-import { Check } from 'phosphor-react'
+import { Check, CheckCircle, CircleWavyCheck } from 'phosphor-react'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
-import { SuccessContainer } from './styled'
+import { CheckContainer, SuccessContainer } from './styled'
 
 export const Success = () => {
   const { participants } = useContext(ParticipantsContext)
 
   return (
     <SuccessContainer>
-      <h1>
-        Você realizou sua inscrição <Check size={32} />
-      </h1>
+      <CheckContainer>
+        <CircleWavyCheck size={48} color="#16a34a" weight="fill" />
+        <h1>Inscrição realizada!</h1>
+        <span>Estamos te esperamos para vivermos momentos sobrenaturais</span>
+      </CheckContainer>
       <p>
         Agora basta você informar os seguintes nomes na entrada da conferência:{' '}
       </p>

@@ -10,11 +10,13 @@ export const LoginContainer = styled.div`
   form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 0.5rem;
   }
 
   input {
-    width: inherit;
+    width: 15.625rem;
     padding: 0.55rem;
     border-radius: 4px;
     border: 1px solid #000;
@@ -32,6 +34,7 @@ export const LoginContainer = styled.div`
   }
 
   button {
+    width: 15.625rem;
     background-color: ${({ theme }) => theme.pink};
     color: ${({ theme }) => theme.white};
     text-transform: uppercase;
@@ -39,7 +42,6 @@ export const LoginContainer = styled.div`
     padding: 0.5rem;
     border: none;
     font-weight: bold;
-    font-family: 'Hind', sans-serif;
     cursor: pointer;
 
     ${({ theme }) => css`
@@ -47,5 +49,9 @@ export const LoginContainer = styled.div`
         background-color: ${lighten(0.1, theme.pink)};
       }
     `}
+  }
+
+  .wrong {
+    color: #dc2626;
   }
 `

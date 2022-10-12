@@ -1,4 +1,5 @@
 import { doc, updateDoc } from 'firebase/firestore'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { db } from 'src/services/firebase-config'
 import { ConfirmButton, UserContainer } from './styled'
@@ -19,6 +20,7 @@ export const User = ({
   user: { users, phone, payment, price, receipt, id, approved },
 }: IUser) => {
   const [localApproved, setLocalApproved] = useState(false)
+  const { pathname } = useRouter()
 
   useEffect(() => {
     setLocalApproved(approved)
@@ -35,8 +37,7 @@ export const User = ({
     <UserContainer>
       {users.map(({ name, type, church }) => (
         <p key={name}>
-          Nome: {name} ({type}){' '}
-          {type === 'Visitante' && <>| Igreja: {church}</>}
+          Nome: {name} ({type}) {type === 'Visitante' && <>| {church}</>}
         </p>
       ))}
       <p>Contato: {phone}</p>
@@ -44,7 +45,7 @@ export const User = ({
         Pagou {payment}{' '}
         {receipt && (
           <>
-            |
+            | {'  '}
             <a href={receipt} target="blank">
               Link do comprovante
             </a>
@@ -52,7 +53,7 @@ export const User = ({
         )}
       </p>
       <p>Valor: {price}</p>
-      {localApproved && <p>Aprovado</p>}
+      {localApproved && pathname === '/aprovar' && <p>Aprovado</p>}
       {localApproved === false && (
         <ConfirmButton onClick={() => handleConfirm(id)}>
           Aprovar pagamento

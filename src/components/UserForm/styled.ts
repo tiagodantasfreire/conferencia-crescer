@@ -3,19 +3,20 @@ import { lighten } from 'polished'
 
 export const FormContainer = styled.div`
   max-width: 90vw;
-  margin: 2rem 0 2.5rem;
+  margin: 1rem 0 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
 
   h1 {
     font-size: 1.25rem;
+    font-weight: 500;
   }
 
   .limit {
     color: red;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     margin-top: 1rem;
   }
 `
@@ -23,15 +24,14 @@ export const FormContainer = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.75rem;
 
   input {
     width: inherit;
     padding: 0.75rem;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #000;
     color: #000;
-    /* font-weight: bold; */
     transition: border 0.2s;
 
     &:focus {
@@ -43,36 +43,10 @@ export const Form = styled.form`
     }
   }
 
-  button {
-    background-color: ${({ theme }) => theme.pink};
-    color: ${({ theme }) => theme.white};
-    text-transform: uppercase;
-    border-radius: 8px;
-    margin-top: 0.5rem;
-    padding: 1rem;
-    border: none;
-    font-weight: bold;
-    font-family: 'Hind', sans-serif;
-    cursor: pointer;
-
-    ${({ theme }) => css`
-      &:hover {
-        background-color: ${lighten(0.1, theme.pink)};
-      }
-    `}
-  }
-`
-
-export const AddRemoveContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  p {
-    font-size: 0.875rem;
-    cursor: pointer;
-
-    &.remove {
-      color: red;
-    }
+  .invalid {
+    color: ${({ theme }) => theme.error};
+    font-size: 0.75rem;
+    margin-top: -0.5rem;
   }
 `
 
@@ -81,20 +55,85 @@ export const RadioContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 
   div {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.5rem;
+
+    label {
+      font-size: 0.875rem;
+    }
 
     input {
       accent-color: ${({ theme }) => theme.pink};
     }
   }
 `
+interface NameInputContainerType {
+  isValid: boolean
+}
 
-export const NameInputContainer = styled.div`
+export const NameInputContainer = styled.div<NameInputContainerType>`
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
+
+  input {
+    border-color: ${({ isValid, theme }) => (isValid ? '#000' : theme.error)};
+  }
+
+  span {
+    color: ${({ theme }) => theme.error};
+    font-size: 0.75rem;
+    margin-top: -0.5rem;
+  }
+`
+
+export const AddRemoveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 0.75rem;
+    cursor: pointer;
+
+    &.remove {
+      color: red;
+    }
+  }
+`
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
   gap: 0.5rem;
+  bottom: 1rem;
+  width: 90%;
+  z-index: 10;
+
+  span {
+    font-size: 0.875rem;
+    color: #1f2937;
+    background-color: #fff;
+  }
+
+  button {
+    width: 100%;
+    background-color: ${({ theme }) => theme.pink};
+    color: ${({ theme }) => theme.white};
+    border-radius: 48px;
+    padding: 0.875rem;
+    border: none;
+    cursor: pointer;
+
+    ${({ theme }) => css`
+      &:hover {
+        background-color: ${lighten(0.1, theme.pink)};
+      }
+    `}
+  }
 `

@@ -9,7 +9,7 @@ export const Header = () => {
   const { step } = useContext(FormContext)
 
   return (
-    <HeaderContainer>
+    <HeaderContainer step={step}>
       <h1>
         <Link href="/" prefetch={false}>
           Conferência Crescer

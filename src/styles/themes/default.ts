@@ -1,6 +1,7 @@
 export const defaultTheme = {
-  pink: '#EE0B52',
+  pink: '#e11d48',
+  error: '#dc2626',
   white: '#FFFFFF',
-  grey: '#E8E8E8',
+  grey: '#d1d5db',
   black: '#121212',
 } as const

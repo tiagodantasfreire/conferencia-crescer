@@ -7,7 +7,8 @@ import { SearchBarContainer, UsersContainer } from './styled'
 import { User } from './User'
 
 export const Users = () => {
-  const { users, totalOfUsers } = useContext(ParticipantsContext)
+  const { users, totalOfUsers, usersToApprove } =
+    useContext(ParticipantsContext)
   const [search, setSearch] = useState('')
 
   const filteredUsers = users.filter(
@@ -32,7 +33,9 @@ export const Users = () => {
   return (
     <UsersContainer>
       <h1>Participantes</h1>
-      <Link href="/aprovar">Aprovar pagamentos</Link>
+      <Link href="/aprovar">
+        <a>Aprovar pagamentos ({usersToApprove.length})</a>
+      </Link>
       <SearchBarContainer>
         <MagnifyingGlass size={18} />
         <input

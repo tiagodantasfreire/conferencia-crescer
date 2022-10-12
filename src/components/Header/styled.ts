@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 
-export const HeaderContainer = styled.header`
-  display: flex;
+interface HeaderContainerType {
+  step: string
+}
+
+export const HeaderContainer = styled.header<HeaderContainerType>`
+  display: ${({ step }) => (step === 'success' ? 'none' : 'flex')};
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 0.5rem;
 
   h1 {
     display: flex;
@@ -14,6 +17,7 @@ export const HeaderContainer = styled.header`
 
     font-size: 1rem;
     font-weight: bold;
+    font-family: 'Hind', 'Inter', sans-serif;
 
     background: rgb(238, 11, 82);
     background: -moz-linear-gradient(

@@ -8,6 +8,7 @@ import { LoginContainer } from './styled'
 export const LoginPage = () => {
   const { login } = useContext(FormContext)
   const [password, setPassword] = useState('')
+  const [wrongPassword, setWrongPassword] = useState(false)
 
   useEffect(() => {
     const cookie = getCookie('@ConfCrescer:casadopailogin')
@@ -21,6 +22,8 @@ export const LoginPage = () => {
     if (password === 'admincrescer') {
       setCookie('@ConfCrescer:casadopailogin', 'true')
       login()
+    } else {
+      setWrongPassword(true)
     }
   }
 
@@ -34,6 +37,9 @@ export const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {wrongPassword && (
+          <p className="wrong">Senha incorreta. Tente novamente</p>
+        )}
         <button>Entrar</button>
       </form>
     </LoginContainer>
