@@ -410,6 +410,7 @@ export const UserForm = () => {
             mask="(99) 99999-9999"
             placeholder="Celular"
             inputMode="numeric"
+            onChange={(e) => setPhone(e.target.value)}
             onBlur={(e) => verifyPhone(e.target.value)}
             style={{ borderColor: isValidPhone ? '#000' : '#dc2626' }}
             required

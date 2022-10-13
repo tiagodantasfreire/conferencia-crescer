@@ -73,6 +73,7 @@ export const HowTo = styled.p`
   margin: 1rem 0;
   line-height: 1.5rem;
   font-weight: 300;
+  text-align: justify;
 `
 
 interface CopyButtonType {

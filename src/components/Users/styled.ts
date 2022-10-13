@@ -49,6 +49,7 @@ export const UserContainer = styled.div`
 
   > p {
     font-size: 0.85rem;
+    line-height: 1.15rem;
 
     a {
       text-decoration: underline;

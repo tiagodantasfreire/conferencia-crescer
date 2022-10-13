@@ -114,6 +114,7 @@ export const ButtonContainer = styled.div`
   bottom: 1rem;
   width: 90%;
   z-index: 10;
+  max-width: 46.875rem;
 
   span {
     font-size: 0.875rem;

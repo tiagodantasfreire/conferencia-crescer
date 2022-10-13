@@ -14,12 +14,12 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     color: #000;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
   input, button {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   a {
@@ -29,7 +29,6 @@ export const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-size: 1.5rem;
-    font-weight: 500;
   }
 `
 

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useContext } from 'react'
 
 import { ParticipantsContext } from 'src/context/ParticipantsContext'
@@ -11,7 +10,6 @@ export const Approve = () => {
   return (
     <ApproveContainer>
       <h1>Aprovar pagamentos</h1>
-      <Link href="/admin">Ver aprovados</Link>
       {usersToApprove.map((user) => (
         <User key={user.id} user={user} />
       ))}

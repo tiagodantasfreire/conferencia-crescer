@@ -89,7 +89,7 @@ export const Payment = () => {
           setDoc(doc(db, 'inscritos', uniqueId), data)
           setTimeout(() => {
             nextStep('success')
-          }, 2500)
+          }, 3000)
         })
       })
     }
@@ -104,7 +104,7 @@ export const Payment = () => {
     setDoc(doc(db, 'inscritos', uniqueId), data)
     setTimeout(() => {
       nextStep('success')
-    }, 2500)
+    }, 3000)
   }
 
   return (

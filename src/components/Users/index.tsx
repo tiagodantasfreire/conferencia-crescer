@@ -33,9 +33,6 @@ export const Users = () => {
   return (
     <UsersContainer>
       <h1>Participantes</h1>
-      <Link href="/aprovar">
-        <a>Aprovar pagamentos ({usersToApprove.length})</a>
-      </Link>
       <SearchBarContainer>
         <MagnifyingGlass size={18} />
         <input
