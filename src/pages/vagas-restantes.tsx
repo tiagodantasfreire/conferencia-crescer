@@ -5,8 +5,7 @@ const VagasRestantes = () => {
   const { totalOfUsers, usersToApprove } = useContext(ParticipantsContext)
 
   const lastVacancies = 120 - totalOfUsers - usersToApprove.length
-
-  const percentLast = (100 * lastVacancies) / 120
+  const percentLast = 100 - (100 * lastVacancies) / 120
 
   return (
     <div>
