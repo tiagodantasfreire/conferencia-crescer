@@ -6,20 +6,20 @@ import Image from 'next/future/image'
 import { doc, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import toast from 'react-hot-toast'
-import { ArrowLeft, CircleNotch } from 'phosphor-react'
+import { ArrowLeft } from 'phosphor-react'
 
 import { FormContext } from '../../context/FormContext'
 import {
   ConfirmationPayment,
   CopyButton,
   HowTo,
-  LoadingContainer,
   PaymentContainer,
 } from './styled'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
 import { db, storage } from '../../services/firebase-config'
 import { Container } from 'src/styles/global'
+import { Loading } from '../Loading'
 
 export const Payment = () => {
   const { nextStep, lote, price, step } = useContext(FormContext)
@@ -178,19 +178,7 @@ export const Payment = () => {
           </ConfirmationPayment>
         </PaymentContainer>
       </Container>
-      {isLoading && (
-        <LoadingContainer>
-          <div>
-            <CircleNotch size={48} />
-            <h1>Reservando...</h1>
-            <p>
-              Espere um segundo, estamos colocando{' '}
-              {numberOfParticipants === 1 ? 'seu nome' : 'o nome de vocês'} na
-              lista
-            </p>
-          </div>
-        </LoadingContainer>
-      )}
+      {isLoading && <Loading />}
     </>
   )
 }

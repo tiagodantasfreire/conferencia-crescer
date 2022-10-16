@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useContext, useState } from 'react'
 
@@ -7,8 +6,7 @@ import { SearchBarContainer, UsersContainer } from './styled'
 import { User } from './User'
 
 export const Users = () => {
-  const { users, totalOfUsers, usersToApprove } =
-    useContext(ParticipantsContext)
+  const { users, totalOfUsers } = useContext(ParticipantsContext)
   const [search, setSearch] = useState('')
 
   const filteredUsers = users.filter(

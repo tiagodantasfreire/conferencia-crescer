@@ -1,20 +1,15 @@
 import { useContext } from 'react'
-import { ParticipantsContext } from 'src/context/ParticipantsContext'
+
+import { Vacancies } from 'src/components/Vacancies'
+import { LoginPage } from '../components/LoginPage'
+import { FormContext } from '../context/FormContext'
+
+import { Container } from '../styles/global'
 
 const VagasRestantes = () => {
-  const { totalOfUsers, usersToApprove } = useContext(ParticipantsContext)
+  const { isLoggedIn } = useContext(FormContext)
 
-  const lastVacancies = 120 - totalOfUsers - usersToApprove.length
-  const percentLast = 100 - (100 * lastVacancies) / 120
-
-  return (
-    <div>
-      <p>Inscrições aprovadas: {totalOfUsers}</p>
-      <p>Inscrições pendentes: {usersToApprove.length}</p>
-      <p>{lastVacancies} vagas restantes</p>
-      <p>{percentLast.toFixed()}% das vagas já foram preenchidas</p>
-    </div>
-  )
+  return <Container>{isLoggedIn ? <Vacancies /> : <LoginPage />}</Container>
 }
 
 export default VagasRestantes

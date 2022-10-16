@@ -53,6 +53,10 @@ export const UserForm = () => {
     participants === 5 ? setShowName5(true) : setShowName5(false)
   }, [participants])
 
+  const remove = () => {
+    removePeople()
+  }
+
   const verifyName = (n: string) => {
     let isValid = false
     const name = n?.split(' ')[0]
@@ -80,10 +84,10 @@ export const UserForm = () => {
 
     if (
       !isValidName ||
-      !isValidName2 ||
-      !isValidName3 ||
-      !isValidName4 ||
-      !isValidName5 ||
+      (!isValidName2 && showName2) ||
+      (!isValidName3 && showName3) ||
+      (!isValidName4 && showName4) ||
+      (!isValidName5 && showName5) ||
       !isValidPhone
     ) {
       return
@@ -393,7 +397,7 @@ export const UserForm = () => {
 
             <AddRemoveContainer>
               {participants !== 1 && (
-                <p onClick={removePeople} className="remove">
+                <p onClick={remove} className="remove">
                   - Remover participante
                 </p>
               )}
