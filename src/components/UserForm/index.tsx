@@ -100,22 +100,22 @@ export const UserForm = () => {
         church: userType === 'Membro' ? 'Casa do Pai' : church,
       },
       {
-        name: name2,
+        name: showName2 && name2,
         type: userType2,
         church: userType2 === 'Membro' ? 'Casa do Pai' : church2,
       },
       {
-        name: name3,
+        name: showName3 && name3,
         type: userType3,
         church: userType3 === 'Membro' ? 'Casa do Pai' : church3,
       },
       {
-        name: name4,
+        name: showName4 && name4,
         type: userType4,
         church: userType4 === 'Membro' ? 'Casa do Pai' : church4,
       },
       {
-        name: name5,
+        name: showName5 && name5,
         type: userType5,
         church: userType5 === 'Membro' ? 'Casa do Pai' : church5,
       },
@@ -123,7 +123,7 @@ export const UserForm = () => {
 
     const data = {
       users: allParticipants.filter(
-        (participant) => participant.name.length > 0
+        (participant) => participant.name && participant.name.length > 0
       ),
       phone,
     }

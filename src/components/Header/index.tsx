@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { ArrowLeft } from 'phosphor-react'
 
 import { HeaderContainer, Navbar } from './styled'
@@ -21,14 +21,11 @@ export const Header = () => {
       </h1>
       {pathname !== '/' && (
         <Navbar>
-          <Link href={pathname === '/admin' ? '/aprovar' : '/admin'}>
-            <a>
-              {pathname === '/admin' ? (
-                <>Aprovar pagamentos({usersToApprove.length})</>
-              ) : (
-                <>Ver aprovados</>
-              )}
-            </a>
+          <Link href="/admin">
+            <a>Participantes</a>
+          </Link>
+          <Link href="/aprovar">
+            <a>Aprovar pagamentos({usersToApprove.length})</a>
           </Link>
           <Link href="/vagas-restantes">
             <a>Vagas restantes</a>

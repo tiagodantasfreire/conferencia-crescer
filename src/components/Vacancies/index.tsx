@@ -5,7 +5,16 @@ import { VacanciesContainer } from './styled'
 export const Vacancies = () => {
   const { totalOfUsers, usersToApprove } = useContext(ParticipantsContext)
 
-  const lastVacancies = 120 - totalOfUsers - usersToApprove.length
+  const totalSubscriptions = usersToApprove.map((user) => user.users.length)
+
+  const total =
+    totalSubscriptions.length > 0
+      ? totalSubscriptions.reduce((sum, i) => {
+          return sum + i
+        })
+      : 0
+
+  const lastVacancies = 120 - totalOfUsers - total
   const percentLast = 100 - (100 * lastVacancies) / 120
 
   return (
@@ -14,16 +23,18 @@ export const Vacancies = () => {
         Inscrições aprovadas: <strong>{totalOfUsers}</strong>
       </p>
       <p>
-        Inscrições pendentes: <strong>{usersToApprove.length}</strong>
+        Inscrições pendentes: <strong>{total}</strong>
       </p>
       <p>
         <strong>{lastVacancies}</strong> vagas restantes
       </p>
       <p>
-        <strong>{percentLast.toFixed()}% das vagas já foram preenchidas</strong>
+        <strong>
+          {percentLast.toFixed(2)}% das vagas já foram preenchidas
+        </strong>
       </p>
 
-      <progress value={totalOfUsers} max="120">
+      <progress value={total} max="120">
         70 %
       </progress>
     </VacanciesContainer>
