@@ -10,7 +10,11 @@ import { getDocs } from 'firebase/firestore'
 import { inscricoesCollectionRef } from '../services/firebase-config'
 
 interface UserType {
-  users: { name: string; type: 'Membro' | 'Visitante'; church: string }[]
+  users: {
+    name: string | false
+    type: 'Membro' | 'Visitante'
+    church: string
+  }[]
   phone: string
   payment: string
   id: string
@@ -22,7 +26,7 @@ interface UserType {
 interface ParticipantsContextType {
   participants: {
     users: {
-      name: string
+      name: string | false
       type: 'Membro' | 'Visitante'
       church: string
     }[]
@@ -35,7 +39,7 @@ interface ParticipantsContextType {
   setParticipants: Dispatch<
     SetStateAction<{
       users: {
-        name: string
+        name: string | false
         type: 'Membro' | 'Visitante'
         church: string
       }[]
@@ -52,7 +56,11 @@ export const ParticipantsContextProvider = ({
   children: ReactNode
 }) => {
   const [participants, setParticipants] = useState<{
-    users: { name: string; type: 'Membro' | 'Visitante'; church: string }[]
+    users: {
+      name: string | false
+      type: 'Membro' | 'Visitante'
+      church: string
+    }[]
     phone: string
   }>({ users: [{ name: '', type: 'Membro', church: '' }], phone: '' })
 

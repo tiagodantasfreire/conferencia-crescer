@@ -1,5 +1,4 @@
-import { useContext, useEffect } from 'react'
-import { ArrowLeft } from 'phosphor-react'
+import { useContext } from 'react'
 
 import { HeaderContainer, Navbar } from './styled'
 import { FormContext } from '../../context/FormContext'
