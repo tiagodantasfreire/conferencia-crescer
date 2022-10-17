@@ -13,6 +13,7 @@ export const Users = () => {
     (users) =>
       users.users.flat().filter((user) => {
         if (
+          user.name &&
           user.name
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')

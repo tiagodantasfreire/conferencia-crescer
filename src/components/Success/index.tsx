@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Check, CheckCircle, CircleWavyCheck } from 'phosphor-react'
+import { CircleWavyCheck } from 'phosphor-react'
 
 import { ParticipantsContext } from '../../context/ParticipantsContext'
 import { CheckContainer, SuccessContainer } from './styled'
@@ -18,7 +18,7 @@ export const Success = () => {
         Agora basta você informar os seguintes nomes na entrada da conferência:{' '}
       </p>
       {participants.users.map((user) => (
-        <p key={user.name} className="names">
+        <p key={user.name || user.church} className="names">
           {user.name}
         </p>
       ))}

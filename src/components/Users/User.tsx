@@ -12,7 +12,7 @@ interface IUser {
     receipt: string
     id: string
     approved: boolean
-    users: { name: string; type: string; church: string }[]
+    users: { name: string | false; type: string; church: string }[]
   }
 }
 
@@ -36,7 +36,7 @@ export const User = ({
   return (
     <UserContainer>
       {users.map(({ name, type, church }) => (
-        <p key={name}>
+        <p key={name || church}>
           Nome: {name} ({type}) {type === 'Visitante' && <>| {church}</>}
         </p>
       ))}
