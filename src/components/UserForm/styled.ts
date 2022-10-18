@@ -93,7 +93,7 @@ export const NameInputContainer = styled.div<NameInputContainerType>`
 
 export const AddRemoveContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 
   p {
     font-size: 0.75rem;

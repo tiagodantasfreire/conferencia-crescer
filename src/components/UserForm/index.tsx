@@ -396,15 +396,15 @@ export const UserForm = () => {
             )}
 
             <AddRemoveContainer>
-              {participants !== 1 && (
-                <p onClick={remove} className="remove">
-                  - Remover participante
-                </p>
-              )}
-
               {participants < 5 && (
                 <p onClick={addPeople} className="add">
                   + Adicionar participante
+                </p>
+              )}
+
+              {participants !== 1 && (
+                <p onClick={remove} className="remove">
+                  - Remover participante
                 </p>
               )}
             </AddRemoveContainer>
