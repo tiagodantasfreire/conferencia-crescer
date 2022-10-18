@@ -38,14 +38,14 @@ export const Payment = () => {
     currency: 'BRL',
   }).format(totalPrice)
 
-  const names = participants.users.map(({ name }) => name)
-
   const qrCodePix = QrCodePix({
     city: 'São Paulo',
     key: '44421076880',
     name: 'Igreja Casa do Pai',
     version: '01',
-    message: `Conferência Crescer | ${lote}º Lote | ${names.join(', ')}`,
+    message: `Conferência Crescer | ${lote}º Lote | ${numberOfParticipants} ${
+      numberOfParticipants === 1 ? 'pessoa' : 'pessoas'
+    }`,
     value: totalPrice,
   })
 
