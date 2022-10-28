@@ -35,7 +35,7 @@ export const Vacancies = () => {
         </strong>
       </p>
 
-      <progress value={total} max="120">
+      <progress value={total + totalOfUsers} max="120">
         70 %
       </progress>
     </VacanciesContainer>
