@@ -4,7 +4,7 @@ import { CircleWavyCheck } from 'phosphor-react'
 import { ParticipantsContext } from '../../context/ParticipantsContext'
 import { CheckContainer, SuccessContainer } from './styled'
 
-export const Success = () => {
+const Success = () => {
   const { participants } = useContext(ParticipantsContext)
 
   return (
@@ -32,3 +32,5 @@ export const Success = () => {
     </SuccessContainer>
   )
 }
+
+export default Success

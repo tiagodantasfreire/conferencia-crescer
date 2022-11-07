@@ -12,8 +12,11 @@ import {
 } from './styled'
 import { ParticipantsContext } from '../../context/ParticipantsContext'
 import { Container } from 'src/styles/global'
+import { doc, setDoc } from 'firebase/firestore'
+import { v4 as uuid } from 'uuid'
+import { db } from 'src/services/firebase-config'
 
-export const UserForm = () => {
+const UserForm = () => {
   const [name, setName] = useState('')
   const [isValidName, setIsValidName] = useState(true)
   const [isValidName2, setIsValidName2] = useState(true)
@@ -93,6 +96,8 @@ export const UserForm = () => {
       return
     }
 
+    const uniqueId = uuid()
+
     const allParticipants = [
       {
         name,
@@ -126,9 +131,13 @@ export const UserForm = () => {
         (participant) => participant.name && participant.name.length > 0
       ),
       phone,
+      isSubscriptionFinished: false,
+      approved: false,
+      id: uniqueId,
     }
 
     setParticipants(data)
+    setDoc(doc(db, 'inscritos', uniqueId), data)
     nextStep('payment')
   }
 
@@ -158,7 +167,6 @@ export const UserForm = () => {
                   placeholder="Qual sua igreja?"
                   value={church}
                   onChange={(e) => setChurch(e.target.value)}
-                  required
                 />
               )}
 
@@ -208,7 +216,6 @@ export const UserForm = () => {
                     placeholder="Qual sua igreja?"
                     value={church2}
                     onChange={(e) => setChurch2(e.target.value)}
-                    required
                   />
                 )}
 
@@ -259,7 +266,6 @@ export const UserForm = () => {
                     placeholder="Qual sua igreja?"
                     value={church3}
                     onChange={(e) => setChurch3(e.target.value)}
-                    required
                   />
                 )}
 
@@ -310,7 +316,6 @@ export const UserForm = () => {
                     placeholder="Qual sua igreja?"
                     value={church4}
                     onChange={(e) => setChurch4(e.target.value)}
-                    required
                   />
                 )}
 
@@ -361,7 +366,6 @@ export const UserForm = () => {
                     placeholder="Qual sua igreja?"
                     value={church5}
                     onChange={(e) => setChurch5(e.target.value)}
-                    required
                   />
                 )}
 
@@ -430,3 +434,5 @@ export const UserForm = () => {
     </Container>
   )
 }
+
+export default UserForm

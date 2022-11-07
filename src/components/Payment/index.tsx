@@ -3,7 +3,7 @@ import { Checkbox } from 'pretty-checkbox-react'
 import { v4 as uuid } from 'uuid'
 import { QrCodePix } from 'qrcode-pix'
 import Image from 'next/future/image'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import toast from 'react-hot-toast'
 import { ArrowLeft } from 'phosphor-react'
@@ -21,7 +21,7 @@ import { db, storage } from '../../services/firebase-config'
 import { Container } from 'src/styles/global'
 import { Loading } from '../Loading'
 
-export const Payment = () => {
+const Payment = () => {
   const { nextStep, lote, price, step } = useContext(FormContext)
   const { participants, numberOfParticipants } = useContext(ParticipantsContext)
 
@@ -76,6 +76,7 @@ export const Payment = () => {
 
     if (file) {
       const fileRef = ref(storage, `${file?.name + uniqueId}`)
+
       uploadBytes(fileRef, file).then((file) => {
         getDownloadURL(file.ref).then((url) => {
           const data = {
@@ -84,12 +85,15 @@ export const Payment = () => {
             price: totalPriceFormatted,
             approved: false,
             receipt: url,
+            isSubscriptionFinished: true,
           }
 
-          setDoc(doc(db, 'inscritos', uniqueId), data)
+          const userDoc = doc(db, 'inscritos', participants.id)
+          updateDoc(userDoc, data)
+
           setTimeout(() => {
             nextStep('success')
-          }, 3000)
+          }, 2500)
         })
       })
     }
@@ -99,13 +103,18 @@ export const Payment = () => {
       payment: moneyPayment ? `para ${payedFor}` : 'via PIX',
       price: totalPriceFormatted,
       approved: false,
+      isSubscriptionFinished: true,
     }
 
-    setDoc(doc(db, 'inscritos', uniqueId), data)
+    const userDoc = doc(db, 'inscritos', participants.id)
+    updateDoc(userDoc, data)
+
     setTimeout(() => {
       nextStep('success')
-    }, 3000)
+    }, 2300)
   }
+
+  const isButtonDisabled = moneyPayment ? payedFor.length <= 3 : !file
 
   return (
     <>
@@ -174,7 +183,7 @@ export const Payment = () => {
               />
             )}
 
-            <button>Realizar inscrição</button>
+            <button disabled={isButtonDisabled}>Confirmar inscrição</button>
           </ConfirmationPayment>
         </PaymentContainer>
       </Container>
@@ -182,3 +191,5 @@ export const Payment = () => {
     </>
   )
 }
+
+export default Payment

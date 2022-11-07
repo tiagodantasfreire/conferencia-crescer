@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
-import { useContext } from 'react'
+import { useContext, lazy, Suspense } from 'react'
 
-import { Payment } from '../components/Payment'
-import { Success } from '../components/Success'
-import { UserForm } from '../components/UserForm'
 import { FormContext } from '../context/FormContext'
+import UserForm from 'src/components/UserForm'
+
+const Payment = lazy(() => import('src/components/Payment'))
+const Success = lazy(() => import('src/components/Success'))
 
 const Home: NextPage = () => {
   const { step } = useContext(FormContext)
@@ -12,8 +13,25 @@ const Home: NextPage = () => {
   return (
     <>
       {step === 'user' && <UserForm />}
-      {step === 'payment' && <Payment />}
-      {step === 'success' && <Success />}
+      <Suspense
+        fallback={
+          <p
+            style={{
+              textAlign: 'center',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '90vw',
+            }}
+          >
+            Carregando os dados de pagamento...
+          </p>
+        }
+      >
+        {step === 'payment' && <Payment />}
+        {step === 'success' && <Success />}
+      </Suspense>
     </>
   )
 }

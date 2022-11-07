@@ -12,12 +12,22 @@ interface IUser {
     receipt: string
     id: string
     approved: boolean
+    isSubscriptionFinished: boolean
     users: { name: string | false; type: string; church: string }[]
   }
 }
 
 export const User = ({
-  user: { users, phone, payment, price, receipt, id, approved },
+  user: {
+    users,
+    phone,
+    payment,
+    price,
+    receipt,
+    id,
+    approved,
+    isSubscriptionFinished = true,
+  },
 }: IUser) => {
   const [localApproved, setLocalApproved] = useState(false)
   const { pathname } = useRouter()
@@ -41,23 +51,29 @@ export const User = ({
         </p>
       ))}
       <p>Contato: {phone}</p>
-      <p>
-        Pagou {payment}{' '}
-        {receipt && (
-          <>
-            | {'  '}
-            <a href={receipt} target="blank">
-              Link do comprovante
-            </a>
-          </>
-        )}
-      </p>
-      <p>Valor: {price}</p>
-      {localApproved && pathname === '/aprovar' && <p>Aprovado</p>}
-      {localApproved === false && (
-        <ConfirmButton onClick={() => handleConfirm(id)}>
-          Aprovar pagamento
-        </ConfirmButton>
+      {isSubscriptionFinished ? (
+        <>
+          <p>
+            Pagou {payment}{' '}
+            {receipt && (
+              <>
+                | {'  '}
+                <a href={receipt} target="blank">
+                  Link do comprovante
+                </a>
+              </>
+            )}
+          </p>
+          <p>Valor: {price}</p>
+          {localApproved && pathname === '/aprovar' && <p>Aprovado</p>}
+          {localApproved === false && (
+            <ConfirmButton onClick={() => handleConfirm(id)}>
+              Aprovar pagamento
+            </ConfirmButton>
+          )}
+        </>
+      ) : (
+        <p>Essa pessoa não finalizou a inscrição</p>
       )}
     </UserContainer>
   )

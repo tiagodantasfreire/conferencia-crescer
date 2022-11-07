@@ -20,6 +20,7 @@ interface UserType {
   id: string
   price: string
   approved: boolean
+  isSubscriptionFinished: boolean
   receipt: string
 }
 
@@ -30,6 +31,7 @@ interface ParticipantsContextType {
       type: 'Membro' | 'Visitante'
       church: string
     }[]
+    id: string
     phone: string
   }
   users: UserType[]
@@ -43,6 +45,7 @@ interface ParticipantsContextType {
         type: 'Membro' | 'Visitante'
         church: string
       }[]
+      id: string
       phone: string
     }>
   >
@@ -61,8 +64,9 @@ export const ParticipantsContextProvider = ({
       type: 'Membro' | 'Visitante'
       church: string
     }[]
+    id: string
     phone: string
-  }>({ users: [{ name: '', type: 'Membro', church: '' }], phone: '' })
+  }>({ users: [{ name: '', type: 'Membro', church: '' }], phone: '', id: '' })
 
   const numberOfParticipants = participants.users.length
 

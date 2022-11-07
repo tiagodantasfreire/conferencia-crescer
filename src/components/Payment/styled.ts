@@ -127,5 +127,10 @@ export const ConfirmationPayment = styled.form`
         background-color: ${lighten(0.1, theme.pink)};
       }
     `}
+
+    &:disabled {
+      background-color: #d1d5db;
+      color: #444;
+    }
   }
 `
