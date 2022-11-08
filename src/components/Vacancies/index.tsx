@@ -1,16 +1,28 @@
 import { useContext } from 'react'
 
 import { ParticipantsContext } from 'src/context/ParticipantsContext'
-import { VacanciesContainer } from './styled'
+import { User } from '../Users/User'
+import { UnfinishedContainer, VacanciesContainer } from './styled'
 
 export const Vacancies = () => {
-  const { totalOfUsers, usersToApprove } = useContext(ParticipantsContext)
+  const { totalOfUsers, usersToApprove, unfinishedSubscriptions } =
+    useContext(ParticipantsContext)
 
   const totalSubscriptions = usersToApprove.map((user) => user.users.length)
 
   const total =
     totalSubscriptions.length > 0
       ? totalSubscriptions.reduce((sum, i) => {
+          return sum + i
+        })
+      : 0
+
+  const unfinishedUsers = unfinishedSubscriptions.map(
+    (user) => user.users.length
+  )
+  const totalUnfinished =
+    unfinishedUsers.length > 0
+      ? unfinishedUsers.reduce((sum, i) => {
           return sum + i
         })
       : 0
@@ -27,15 +39,25 @@ export const Vacancies = () => {
         Inscrições pendentes: <strong>{total}</strong>
       </p>
       <p>
+        Inscrições não finalizadas: <strong>{totalUnfinished}</strong>
+      </p>
+      <p>
         <strong>{lastVacancies}</strong> vagas restantes
       </p>
       <p>
-        <strong>
-          {percentLast.toFixed(2)}% das vagas já foram preenchidas
-        </strong>
+        <strong>{percentLast.toFixed()}% das vagas já foram preenchidas</strong>
       </p>
 
       <progress value={total + totalOfUsers} max="120" />
+
+      {totalUnfinished > 0 && (
+        <UnfinishedContainer>
+          <h1>Inscrições não finalizadas</h1>
+          {unfinishedSubscriptions.map((user) => (
+            <User key={user.id} user={user} />
+          ))}
+        </UnfinishedContainer>
+      )}
     </VacanciesContainer>
   )
 }

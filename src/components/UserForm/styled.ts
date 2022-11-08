@@ -71,18 +71,11 @@ export const RadioContainer = styled.div`
     }
   }
 `
-interface NameInputContainerType {
-  isValid: boolean
-}
 
-export const NameInputContainer = styled.div<NameInputContainerType>`
+export const NameInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-
-  input {
-    border-color: ${({ isValid, theme }) => (isValid ? '#000' : theme.error)};
-  }
 
   span {
     color: ${({ theme }) => theme.error};

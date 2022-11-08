@@ -10,3 +10,11 @@ export const VacanciesContainer = styled.div`
     width: 100%;
   }
 `
+
+export const UnfinishedContainer = styled.div`
+  margin-top: 1.5rem;
+
+  h1 {
+    font-size: 1rem;
+  }
+`

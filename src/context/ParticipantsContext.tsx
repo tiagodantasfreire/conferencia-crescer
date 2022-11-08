@@ -36,6 +36,7 @@ interface ParticipantsContextType {
   }
   users: UserType[]
   usersToApprove: UserType[]
+  unfinishedSubscriptions: UserType[]
   numberOfParticipants: number
   totalOfUsers: number
   setParticipants: Dispatch<
@@ -72,6 +73,9 @@ export const ParticipantsContextProvider = ({
 
   const [users, setUsers] = useState<UserType[]>([])
   const [usersToApprove, setUsersToAprove] = useState<UserType[]>([])
+  const [unfinishedSubscriptions, setUnfinishedSubscriptions] = useState<
+    UserType[]
+  >([])
 
   useEffect(() => {
     const getUsers = async () => {
@@ -81,10 +85,17 @@ export const ParticipantsContextProvider = ({
       )
 
       const approvedUsers = users.filter((user) => user.approved)
-      const userToApprove = users.filter((user) => user.approved === false)
+      const userToApprove = users.filter(
+        (user) =>
+          user.approved === false && user.isSubscriptionFinished === true
+      )
+      const unfinishedSubscriptions = users.filter(
+        (user) => user.isSubscriptionFinished === false
+      )
 
       setUsersToAprove(userToApprove)
       setUsers(approvedUsers)
+      setUnfinishedSubscriptions(unfinishedSubscriptions)
     }
 
     getUsers()
@@ -107,6 +118,7 @@ export const ParticipantsContextProvider = ({
         users,
         totalOfUsers,
         usersToApprove,
+        unfinishedSubscriptions,
       }}
     >
       {children}

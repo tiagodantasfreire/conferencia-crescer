@@ -18,13 +18,7 @@ import { db } from 'src/services/firebase-config'
 
 const UserForm = () => {
   const [name, setName] = useState('')
-  const [isValidName, setIsValidName] = useState(true)
-  const [isValidName2, setIsValidName2] = useState(true)
-  const [isValidName3, setIsValidName3] = useState(true)
-  const [isValidName4, setIsValidName4] = useState(true)
-  const [isValidName5, setIsValidName5] = useState(true)
   const [phone, setPhone] = useState('')
-  const [isValidPhone, setIsValidPhone] = useState(true)
   const [userType, setUserType] = useState<'Membro' | 'Visitante'>('Membro')
   const [userType2, setUserType2] = useState<'Membro' | 'Visitante'>('Membro')
   const [userType3, setUserType3] = useState<'Membro' | 'Visitante'>('Membro')
@@ -60,41 +54,8 @@ const UserForm = () => {
     removePeople()
   }
 
-  const verifyName = (n: string) => {
-    let isValid = false
-    const name = n?.split(' ')[0]
-    const lastName = n?.split(' ')[1]
-
-    if (name?.length > 3 && lastName?.length > 3) {
-      isValid = true
-    }
-
-    return isValid
-  }
-
-  const verifyPhone = (phone: string) => {
-    const formattedPhone = phone
-      .replaceAll('_', '')
-      .replace('(', '')
-      .replace(')', '')
-      .replace('-', '')
-
-    formattedPhone.length < 11 ? setIsValidPhone(false) : setIsValidPhone(true)
-  }
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-
-    if (
-      !isValidName ||
-      (!isValidName2 && showName2) ||
-      (!isValidName3 && showName3) ||
-      (!isValidName4 && showName4) ||
-      (!isValidName5 && showName5) ||
-      !isValidPhone
-    ) {
-      return
-    }
 
     const uniqueId = uuid()
 
@@ -147,24 +108,19 @@ const UserForm = () => {
         <h1>Faça sua inscrição</h1>
         <Form onSubmit={handleSubmit}>
           <div>
-            <NameInputContainer isValid={isValidName}>
+            <NameInputContainer>
               <input
                 type="text"
                 placeholder="Nome Completo"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                onBlur={(e) => {
-                  const isValid = verifyName(e.target.value)
-                  setIsValidName(isValid)
-                }}
                 required
               />
-              {!isValidName && <span>Coloque nome e sobrenome</span>}
 
               {userType === 'Visitante' && (
                 <input
                   type="text"
-                  placeholder="Qual sua igreja?"
+                  placeholder="Qual sua igreja? (Opcional)"
                   value={church}
                   onChange={(e) => setChurch(e.target.value)}
                 />
@@ -196,24 +152,19 @@ const UserForm = () => {
             </NameInputContainer>
 
             {showName2 && (
-              <NameInputContainer isValid={isValidName2}>
+              <NameInputContainer>
                 <input
                   type="text"
                   placeholder="Nome Completo"
                   value={name2}
                   onChange={(e) => setName2(e.target.value)}
-                  onBlur={(e) => {
-                    const isValid = verifyName(e.target.value)
-                    setIsValidName2(isValid)
-                  }}
                   required
                 />
-                {!isValidName2 && <span>Coloque nome e sobrenome</span>}
 
                 {userType2 === 'Visitante' && (
                   <input
                     type="text"
-                    placeholder="Qual sua igreja?"
+                    placeholder="Qual sua igreja? (Opcional)"
                     value={church2}
                     onChange={(e) => setChurch2(e.target.value)}
                   />
@@ -246,24 +197,19 @@ const UserForm = () => {
             )}
 
             {showName3 && (
-              <NameInputContainer isValid={isValidName3}>
+              <NameInputContainer>
                 <input
                   type="text"
                   placeholder="Nome Completo"
                   value={name3}
                   onChange={(e) => setName3(e.target.value)}
-                  onBlur={(e) => {
-                    const isValid = verifyName(e.target.value)
-                    setIsValidName3(isValid)
-                  }}
                   required
                 />
-                {!isValidName3 && <span>Coloque nome e sobrenome</span>}
 
                 {userType3 === 'Visitante' && (
                   <input
                     type="text"
-                    placeholder="Qual sua igreja?"
+                    placeholder="Qual sua igreja? (Opcional)"
                     value={church3}
                     onChange={(e) => setChurch3(e.target.value)}
                   />
@@ -296,24 +242,19 @@ const UserForm = () => {
             )}
 
             {showName4 && (
-              <NameInputContainer isValid={isValidName4}>
+              <NameInputContainer>
                 <input
                   type="text"
                   placeholder="Nome Completo"
                   value={name4}
                   onChange={(e) => setName4(e.target.value)}
-                  onBlur={(e) => {
-                    const isValid = verifyName(e.target.value)
-                    setIsValidName4(isValid)
-                  }}
                   required
                 />
-                {!isValidName4 && <span>Coloque nome e sobrenome</span>}
 
                 {userType4 === 'Visitante' && (
                   <input
                     type="text"
-                    placeholder="Qual sua igreja?"
+                    placeholder="Qual sua igreja? (Opcional)"
                     value={church4}
                     onChange={(e) => setChurch4(e.target.value)}
                   />
@@ -346,24 +287,19 @@ const UserForm = () => {
             )}
 
             {showName5 && (
-              <NameInputContainer isValid={isValidName5}>
+              <NameInputContainer>
                 <input
                   type="text"
                   placeholder="Nome Completo"
                   value={name5}
                   onChange={(e) => setName5(e.target.value)}
-                  onBlur={(e) => {
-                    const isValid = verifyName(e.target.value)
-                    setIsValidName5(isValid)
-                  }}
                   required
                 />
-                {!isValidName5 && <span>Coloque nome e sobrenome</span>}
 
                 {userType5 === 'Visitante' && (
                   <input
                     type="text"
-                    placeholder="Qual sua igreja?"
+                    placeholder="Qual sua igreja? (Opcional)"
                     value={church5}
                     onChange={(e) => setChurch5(e.target.value)}
                   />
@@ -419,11 +355,8 @@ const UserForm = () => {
             placeholder="Celular"
             inputMode="numeric"
             onChange={(e) => setPhone(e.target.value)}
-            onBlur={(e) => verifyPhone(e.target.value)}
-            style={{ borderColor: isValidPhone ? '#000' : '#dc2626' }}
             required
           />
-          {!isValidPhone && <span className="invalid">Número inválido</span>}
 
           <ButtonContainer>
             <span>Total: R${price * participants}</span>
